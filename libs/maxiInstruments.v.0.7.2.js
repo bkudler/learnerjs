@@ -843,14 +843,15 @@ class MaxiInstrument {
     * //Set loop for 4 beats
     * sampler.setLoop(4, 1)
    */
-    setLoop(end, ticks = 24, start = 0) {
+    setLoop(end, ticks = 24, start = 0, amount = Infinity) {
       const loopEnd = (end * (this.TICKS_PER_BEAT / ticks));
       const loopStart = (start * (this.TICKS_PER_BEAT / ticks));
+      console.log("MAXI LOOP", loopEnd, loopStart, this.node);
       this.node.port.postMessage({
         loop:{
           instrument:this.instrument,
           index:this.index,
-          val:{start:loopStart,end:loopEnd}
+          val:{start:loopStart,end:loopEnd, loopAmount:amount}
         }
       });
     }
